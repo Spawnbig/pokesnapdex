@@ -1,12 +1,14 @@
 import { useState } from 'react';
-import { Button, Image, StyleSheet, Text, View } from 'react-native';
+import { Image, Text, View } from 'react-native';
 import { useTensorflowModel } from 'react-native-fast-tflite'
 import * as ImagePicker from 'expo-image-picker';
 import { convertToRGB } from 'react-native-image-to-rgb';
 import ImageResizer from 'react-native-image-resizer';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import { useTheme, Button, IconButton } from 'react-native-paper';
 
-export default function TabTwoScreen() {
+export default function CameraScreen() {
+  const { colors } = useTheme();
   const model = useTensorflowModel(require('../../assets/model/current_model.tflite'))
   const actualModel = model.state === 'loaded' ? model.model : undefined
 
@@ -81,13 +83,33 @@ export default function TabTwoScreen() {
   }
 
   return (
-    <SafeAreaView>
-      <Text>SAS</Text>
+    <SafeAreaView style={{ backgroundColor: colors.background, height: 'auto', flex: 1 }}>
+      <Image source={require('../../assets/images/top-camera.png')} style={{ width: '100%' }} />
+      <View style={{ height: 450, backgroundColor: 'silver', justifyContent: 'center', alignContent: 'center', alignItems: 'center' }}>
+        <View style={{ height: 350, backgroundColor: 'black', width: '90%' }}>
+          {image && <Image source={{ uri: image }} style={{ width: '100%', height: '100%' }} />}
+        </View>
+      </View>
+
+      <View style={{ flexDirection: 'row', justifyContent: 'center', gap: 10 }}>
+        <IconButton
+          mode='contained'
+          icon="camera"
+          containerColor='black'
+          iconColor='white'
+          size={60}
+          onPress={() => console.log('Pressed')}
+        />
+      </View>
       <View>
-        <Text>{actualModel ? 'Modelo listo para usar' : 'Cargando modelo ...'}</Text>
-        {image && <Image source={{ uri: image }} style={{ width: 200, height: 200 }}></Image>}
-        <Button title='Seleccionar Imagen' onPress={pickImage} />
-        <Button title='Hacer Predicción' onPress={makePrediction} />
+        <IconButton
+          icon='image-area'
+          mode='contained'
+          containerColor='black'
+          iconColor='white'
+          onPress={pickImage}
+          size={30}
+        />
       </View>
     </SafeAreaView>
   );
