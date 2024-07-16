@@ -1,12 +1,10 @@
 import { Tabs } from 'expo-router';
-import { SQLiteProvider } from 'expo-sqlite';
 import React from 'react';
 import { Image } from 'react-native';
 import { useTheme } from 'react-native-paper';
 
 export default function TabLayout() {
   const { colors } = useTheme();
-
 
   const PokedexIcon = () => {
     return (
@@ -21,32 +19,30 @@ export default function TabLayout() {
   }
 
   return (
-    <SQLiteProvider databaseName='pokemondb' assetSource={{ assetId: require('../../assets/db/database.db') }}>
-      <Tabs
-        screenOptions={{
+    <Tabs
+      screenOptions={{
+        headerShown: false,
+        tabBarActiveBackgroundColor: 'black',
+        tabBarInactiveBackgroundColor: 'black',
+      }}>
+      <Tabs.Screen
+        name="index"
+        options={{
+          title: 'Pokedex',
+          headerTintColor: 'white',
+          headerShown: true,
+          tabBarIcon: PokedexIcon,
+          headerStyle: { backgroundColor: colors.primary },
+        }}
+      />
+      <Tabs.Screen
+        name="camera"
+        options={{
+          title: 'Camera',
+          tabBarIcon: CameraIcon,
           headerShown: false,
-          tabBarActiveBackgroundColor: 'black',
-          tabBarInactiveBackgroundColor: 'black',
-        }}>
-        <Tabs.Screen
-          name="index"
-          options={{
-            title: 'Pokedex',
-            headerTintColor: 'white',
-            headerShown: true,
-            tabBarIcon: PokedexIcon,
-            headerStyle: { backgroundColor: colors.primary },
-          }}
-        />
-        <Tabs.Screen
-          name="camera"
-          options={{
-            title: 'Camera',
-            tabBarIcon: CameraIcon,
-            headerShown: false,
-          }}
-        />
-      </Tabs>
-    </SQLiteProvider>
+        }}
+      />
+    </Tabs>
   );
 }

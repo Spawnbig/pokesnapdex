@@ -3,6 +3,8 @@ import React, { useEffect } from 'react';
 import 'react-native-reanimated';
 import { DefaultTheme, PaperProvider } from 'react-native-paper';
 import { useCameraPermission } from 'react-native-vision-camera';
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
+import { SQLiteProvider } from 'expo-sqlite';
 
 export default function RootLayout() {
   const cameraPermissions = useCameraPermission();
@@ -12,11 +14,15 @@ export default function RootLayout() {
   }, []);
 
   return (
-    <PaperProvider theme={theme}>
-      <Stack>
-        <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-      </Stack>
-    </PaperProvider>
+    <SQLiteProvider databaseName='pokemon.db' assetSource={{ assetId: require('../assets/db/database.db') }}>
+      <GestureHandlerRootView>
+        <PaperProvider theme={theme}>
+          <Stack>
+            <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+          </Stack>
+        </PaperProvider>
+      </GestureHandlerRootView>
+    </SQLiteProvider>
   );
 }
 

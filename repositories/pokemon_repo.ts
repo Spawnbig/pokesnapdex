@@ -1,7 +1,7 @@
 import { Pokemon } from "@/interfaces/pokemon";
 import * as SQLite from "expo-sqlite";
 
-const db = SQLite.openDatabaseSync("pokemondb");
+const db = SQLite.openDatabaseSync("pokemon.db");
 
 export const setViewedPokemon = async (id: number) => {
   await db.execAsync(
