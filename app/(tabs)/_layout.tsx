@@ -4,7 +4,6 @@ import React from 'react';
 import { Image } from 'react-native';
 import { useTheme } from 'react-native-paper';
 
-
 export default function TabLayout() {
   const { colors } = useTheme();
 
@@ -22,7 +21,7 @@ export default function TabLayout() {
   }
 
   return (
-    <SQLiteProvider databaseName='pokemondb' assetSource={{ assetId: require('../../assets/db/pokemon.db') }}>
+    <SQLiteProvider databaseName='pokemondb' assetSource={{ assetId: require('../../assets/db/database.db') }}>
       <Tabs
         screenOptions={{
           headerShown: false,
@@ -42,7 +41,7 @@ export default function TabLayout() {
         <Tabs.Screen
           name="camera"
           options={{
-            title: 'Camara',
+            title: 'Camera',
             tabBarIcon: CameraIcon,
             headerShown: false,
           }}

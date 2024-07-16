@@ -2,7 +2,7 @@ import { useRef, useState } from 'react';
 import { Image, View, Text, useWindowDimensions } from 'react-native';
 import { useTensorflowModel } from 'react-native-fast-tflite'
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { useTheme, IconButton } from 'react-native-paper';
+import { useTheme, IconButton, ActivityIndicator } from 'react-native-paper';
 import { Camera, useCameraDevice } from 'react-native-vision-camera'
 import { ImageSelectorService, ModelService } from '@/services';
 
@@ -46,6 +46,16 @@ export default function CameraScreen() {
     setImage(null)
     setPrediction(null)
   }
+
+
+  if (model.state === 'loading') {
+    return (
+      <SafeAreaView style={{ flex: 1, backgroundColor: colors.background }}>
+        <ActivityIndicator size={'large'} />
+      </SafeAreaView>
+    )
+  }
+
 
   return (
     <SafeAreaView style={{ backgroundColor: colors.background, height: 'auto', flex: 1 }}>

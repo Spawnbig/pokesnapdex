@@ -1,28 +1,32 @@
 import { imageMap } from "@/assets/images/sprites/image_map";
 import { ImageMap } from "@/interfaces/custom";
 import { Pokemon } from "@/interfaces/pokemon";
-import { Image, StyleSheet, View } from "react-native";
-import { Card, Text } from 'react-native-paper'
+import getPokemonCardStyle from "@/styles/pokemon_card.style";
+import { Image, View } from "react-native";
+import { Card, Chip, Text } from 'react-native-paper'
 
-const PokemonCard = ({ name, japanese_name, classfication, pokedex_number, isViewed }: Pokemon) => {
-    const imageSource: ImageMap = imageMap[pokedex_number];
-    const imageStyle = isViewed ? styles.normal : styles.grayscale;
-    const pokeballStyle = isViewed ? styles.pokeball : styles.pokeballSilver;
+const PokemonCard = (pokemon: Pokemon) => {
+    const imageSource: ImageMap = imageMap[pokemon.pokedex_number];
+    const cardStyle = getPokemonCardStyle(pokemon.isViewed, pokemon.type1);
 
     return (
-        <Card>
+        <Card style={cardStyle.backgroundColor}>
             <Card.Content style={{ flexDirection: 'row' }}>
-                <View style={{ backgroundColor: 'gray', borderRadius: 500, padding: 10 }}>
-                    <Image source={imageSource} style={imageStyle} />
+                <View style={cardStyle.containerImage}>
+                    <Image source={imageSource} style={cardStyle.image} />
                 </View>
                 <View style={{ flexDirection: 'row' }}>
                     <View style={{ width: '70%', paddingLeft: 10 }}>
-                        <Text style={{ fontWeight: 'bold' }}>{name} #{pokedex_number}</Text>
-                        <Text>{japanese_name}</Text>
-                        <Text>{classfication}</Text>
+                        <Text style={{ fontWeight: 'bold' }}>{pokemon.name} #{pokemon.pokedex_number}</Text>
+                        <Text>{pokemon.japanese_name}</Text>
+                        <Text>{pokemon.classfication}</Text>
+                        <View style={{ flexDirection: 'row', marginTop: 5, gap: 5 }}>
+                            <Chip mode="outlined" style={cardStyle.chipStyle} textStyle={cardStyle.chipTextStyle}>{pokemon.type1}</Chip>
+                            {pokemon.type2 && <Chip mode="outlined" style={cardStyle.chipStyle} textStyle={cardStyle.chipTextStyle}>{pokemon.type2}</Chip>}
+                        </View>
                     </View>
                     <View style={{ width: '5%' }}>
-                        <Image source={require('../../assets/images/pokeball.png')} style={pokeballStyle} />
+                        <Image source={require('../../assets/images/pokeball.png')} style={cardStyle.pokeball} />
                     </View>
                 </View>
             </Card.Content>
@@ -30,25 +34,6 @@ const PokemonCard = ({ name, japanese_name, classfication, pokedex_number, isVie
     )
 }
 
-const styles = StyleSheet.create({
-    normal: {
-        width: 100,
-        height: 100,
-    },
-    grayscale: {
-        width: 100,
-        height: 100,
-        tintColor: 'silver',
-    },
-    pokeball: {
-        width: 30,
-        height: 30,
-    },
-    pokeballSilver: {
-        width: 30,
-        height: 30,
-        tintColor: 'silver',
-    }
-});
+
 
 export default PokemonCard;
