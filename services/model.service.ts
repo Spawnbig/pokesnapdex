@@ -1,5 +1,5 @@
 import { Prediction } from "@/interfaces/model";
-import { getPokemonById } from "@/repositories/pokemon_repo";
+import { getPokemonById, setViewedPokemon } from "@/repositories/pokemon_repo";
 import { TensorflowModel } from "react-native-fast-tflite";
 import ImageResizer from "react-native-image-resizer";
 import { convertToRGB } from "react-native-image-to-rgb";
@@ -40,6 +40,7 @@ export const makePrediction = async (
       )}% confidence`
     );
     const pokemon = await getPokemonById(Labels[maxIndex]);
+    await setViewedPokemon(pokemon.pokedex_number);
     return { pokemon, confidence };
   } catch (err) {
     console.log(err);
