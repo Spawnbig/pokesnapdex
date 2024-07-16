@@ -1,50 +1,53 @@
-# Welcome to your Expo app 👋
+# PokeSnapDex
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+PokeSnapDex is a React Native application that allows users to identify a Pokemon using a local model (Running on the device, so it works completely offline). Users can either take a picture or select a photo from their device, and the model will identify the Pokémon. If the confidence level is above 60%, you will be able to see a picture and details in the Pokedex tab. (Only 1 Gen)
 
-## Get started
+This project is purely for educational purposes, aiming to learn and apply techniques for creating image classification models. Specifically, the focus is on implementing a TensorFlow Lite (TFLite) model within a React Native application for offline functionality. The goal is to gain practical experience in machine learning model development, deployment on mobile platforms, and enhancing technical skills in these areas.
+
+## Example
+
+![Example 1](docs/example1.png) ![Example 2](docs/example2.png)
+
+## Features
+
+- Offline Model: No internet connection required for identifying Pokémon
+- Offline data: All the information is stored on a simple .db file located [here](assets/db/database.db)
+- Image Capture: Take a picture using your device's camera or select a photo from your gallery.
+- Pokedex: View detailed information about the captured Pokémon.
+
+## Install
 
 1. Install dependencies
 
    ```bash
-   npm install
+   npm i
    ```
 
 2. Start the app
 
    ```bash
-    npx expo start
+    npm start
    ```
 
-In the output, you'll find options to open the app in a
+3. To work with the model, a development build is needed
 
 - [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
 
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
+## Usage
 
-## Get a fresh project
+1. Open the App: Launch PokeSnapDex on your device.
+2. Capture/Select Image: Use the camera to take a new picture or select an existing photo from your gallery.
+3. Identify Pokémon: The model will process the image and identify the Pokémon if the confidence level is above 60%.
+4. View Details: If a Pokémon is identified, you can access to the information on the pokedex tab.
 
-When you're ready, run:
+## Model Information
 
-```bash
-npm run reset-project
-```
+To train the model, I used sprites found on the internet and performed simple web scraping from search engines.
 
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
+- Base model: MobilenetV2
+- Number of Classes: 151
+- Epochs: 35
 
-## Learn more
+Final accuracy and loss
 
-To learn more about developing your project with Expo, look at the following resources:
-
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
-
-## Join the community
-
-Join our community of developers creating universal apps.
-
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+![Accuracy](docs/accuracy.png) ![Loss](docs/loss.png)

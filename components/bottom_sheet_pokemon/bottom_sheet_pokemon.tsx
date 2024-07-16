@@ -1,7 +1,7 @@
 import { imageMap } from "@/assets/images/sprites/image_map";
 import ColorByType from "@/constants/color_types";
 import { Pokemon } from "@/interfaces/pokemon";
-import { BottomSheetFlatList, BottomSheetView } from "@gorhom/bottom-sheet";
+import { BottomSheetView } from "@gorhom/bottom-sheet";
 import React from "react";
 import { Image, View } from "react-native";
 import { Card, Chip, ProgressBar, Text, useTheme } from "react-native-paper";

@@ -1,11 +1,11 @@
 import { BottomSheetPokemon, PokemonCard } from "@/components";
 import { usePokemon } from "@/hooks";
 import { Pokemon } from "@/interfaces/pokemon";
-import { BottomSheetModal, BottomSheetModalProvider, BottomSheetView } from "@gorhom/bottom-sheet";
+import { BottomSheetModal, BottomSheetModalProvider } from "@gorhom/bottom-sheet";
 import { useFocusEffect } from "expo-router";
 import { useCallback, useRef, useState } from "react";
 import { FlatList, ListRenderItem } from "react-native";
-import { ActivityIndicator, TextInput, useTheme, Text } from "react-native-paper";
+import { ActivityIndicator, TextInput, useTheme } from "react-native-paper";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 

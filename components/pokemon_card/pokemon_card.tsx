@@ -26,7 +26,7 @@ const PokemonCard = ({ pokemon, bottomSheetRef, setSelectedPokemon }: Props) => 
     }, []);
 
     return (
-        <TouchableOpacity onPress={handlePresentModalPress}>
+        <TouchableOpacity onPress={handlePresentModalPress} disabled={!pokemon.isViewed}>
             <Card style={cardStyle.backgroundColor}>
                 <Card.Content style={{ flexDirection: 'row' }}>
                     <View style={cardStyle.containerImage}>

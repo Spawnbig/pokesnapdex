@@ -14,6 +14,7 @@ export default function CameraScreen() {
   const camera = useRef<Camera>(null)
   const [image, setImage] = useState<string | null>(null)
   const [prediction, setPrediction] = useState<string | null>(null)
+  const [confidence, setConfidence] = useState<number | null>(null)
   const { height } = useWindowDimensions()
   const heigthScreen = height / 3;
   const heigthCamera = heigthScreen - 20;
@@ -24,6 +25,7 @@ export default function CameraScreen() {
       const photoUri = await ImageSelectorService.takePicture(camera)
       setImage(photoUri)
       const pred = await ModelService.makePrediction(actualModel, photoUri)
+      setConfidence(pred.confidence)
       setPrediction(`${pred.pokemon?.name} - ${pred.confidence.toFixed(2)}%`)
     } catch (err) {
       console.log(err)
@@ -36,6 +38,7 @@ export default function CameraScreen() {
       setImage(imageUri)
       if (!actualModel) return;
       const pred = await ModelService.makePrediction(actualModel, imageUri)
+      setConfidence(pred.confidence)
       setPrediction(`${pred.pokemon?.name} - ${pred.confidence.toFixed(2)}%`)
     } catch (err) {
       console.log(err)
@@ -45,6 +48,7 @@ export default function CameraScreen() {
   const resetData = () => {
     setImage(null)
     setPrediction(null)
+    setConfidence(null)
   }
 
 
@@ -75,25 +79,30 @@ export default function CameraScreen() {
       </View>
 
       <View style={{ flexDirection: 'row', justifyContent: 'center', gap: 10 }}>
-        <IconButton
+        {!image && <IconButton
           mode='contained'
           icon="camera"
           containerColor='black'
           iconColor='white'
           size={60}
           onPress={handleTakePicture}
-        />
+        />}
       </View>
       {prediction && <Text style={{ color: 'white', textAlign: 'center' }}>{prediction}</Text>}
+      {confidence &&
+        <Text style={{ color: 'white', textAlign: 'center' }}>{confidence < 60 ?
+          'We cannot identify the pokemon, please try again' :
+          'Congrats! Search it in the pokedex'}
+        </Text>}
       <View style={{ justifyContent: 'space-between', flexDirection: 'row' }}>
-        <IconButton
+        {!image && <IconButton
           icon='image-area'
           mode='contained'
           containerColor='black'
           iconColor='white'
           onPress={handlePickImage}
           size={30}
-        />
+        />}
 
         {image &&
           <IconButton

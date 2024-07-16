@@ -40,7 +40,7 @@ export const makePrediction = async (
       )}% confidence`
     );
     const pokemon = await getPokemonById(Labels[maxIndex]);
-    await setViewedPokemon(pokemon.pokedex_number);
+    if (confidence >= 60) await setViewedPokemon(pokemon.pokedex_number);
     return { pokemon, confidence };
   } catch (err) {
     console.log(err);
