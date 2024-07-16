@@ -1,16 +1,24 @@
 import { PokemonCard } from "@/components";
 import { usePokemon } from "@/hooks";
+import { useFocusEffect } from "expo-router";
+import { useCallback } from "react";
 import { Text, FlatList } from "react-native";
 import { useTheme } from "react-native-paper";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 
 export default function HomeScreen() {
-  const { isLoading, pokemons } = usePokemon();
+  const { isLoading, pokemons, loadPokemons } = usePokemon();
   const { colors } = useTheme();
 
+  useFocusEffect(
+    useCallback(() => {
+      loadPokemons();
+    }, [])
+  );
+
   return (
-    <SafeAreaView style={{ backgroundColor: colors.background }}>
+    <SafeAreaView style={{ backgroundColor: colors.background, flex: 1 }}>
       {isLoading ? <Text>Loading...</Text>
         :
         <FlatList

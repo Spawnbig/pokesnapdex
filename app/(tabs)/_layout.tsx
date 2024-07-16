@@ -22,7 +22,7 @@ export default function TabLayout() {
   }
 
   return (
-    <SQLiteProvider databaseName='pokemon_data.db' assetSource={{ assetId: require('../../assets/db/pokemon_data.db') }}>
+    <SQLiteProvider databaseName='pokemondb' assetSource={{ assetId: require('../../assets/db/pokemon.db') }}>
       <Tabs
         screenOptions={{
           headerShown: false,

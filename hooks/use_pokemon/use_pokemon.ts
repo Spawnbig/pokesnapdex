@@ -1,6 +1,6 @@
 import { Pokemon } from "@/interfaces/pokemon";
 import { PokemonRepo } from "@/repositories";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 
 export const usePokemon = () => {
   const [pokemons, setPokemons] = useState<Pokemon[]>([]);
@@ -14,6 +14,8 @@ export const usePokemon = () => {
     try {
       const res = await PokemonRepo.getPokemonList();
       setPokemons(res);
+    } catch (err) {
+      console.log(err);
     } finally {
       setIsLoading(false);
     }
@@ -22,5 +24,6 @@ export const usePokemon = () => {
   return {
     pokemons,
     isLoading,
+    loadPokemons,
   };
 };

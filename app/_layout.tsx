@@ -1,13 +1,20 @@
 import { Stack } from 'expo-router';
-import React from 'react';
+import React, { useEffect } from 'react';
 import 'react-native-reanimated';
 import { DefaultTheme, PaperProvider } from 'react-native-paper';
+import { useCameraPermission } from 'react-native-vision-camera';
 
 export default function RootLayout() {
+  const cameraPermissions = useCameraPermission();
+
+  useEffect(() => {
+    cameraPermissions.requestPermission();
+  }, []);
+
   return (
     <PaperProvider theme={theme}>
       <Stack>
-        <Stack.Screen name="(tabs)" options={{ headerShown: false  }} />
+        <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
       </Stack>
     </PaperProvider>
   );
